@@ -24,7 +24,7 @@ const isPalindrome = function (str) {
     }
   }
   return halfLine !== 0;
-}
+};
 
 isPalindrome('goog');
 // конец 2-ого задания
@@ -41,7 +41,7 @@ const toNumber = (str) => {
     }
   }
   return result ? result : NaN;
-}
+};
 
 toNumber(string);
 // конец программы 3
