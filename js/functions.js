@@ -45,3 +45,22 @@ const toNumber = (str) => {
 
 toNumber(string);
 // конец программы 3
+// Task 2
+// объявляем переменные для задания
+const startDayTime = '9:0';
+const finishDayYime = '17:30';
+const startMeetingTime = '8:59';
+const durationTime = '30';
+// ф-ция для того чтобы узнать, состоится ли встреча
+const willMeetingBe = function (startDayTime, finishDayYime, startMeetingTime, durationTime) {
+  const timesInHoursAndMinutes = [startDayTime, finishDayYime, startMeetingTime].map((element) => element.split(':').map((el) => Number(el)));
+  const startDay = timesInHoursAndMinutes[0];
+  const finishDay = timesInHoursAndMinutes[1];
+  const startMeeting = timesInHoursAndMinutes[2];
+  const durationHours = Math.floor(durationTime / 60);
+  const durationMinutes = durationTime - (durationHours * 60);
+  return (startMeeting[0] >= startDay[0]) && (startMeeting[0] === startDay[0] ? startMeeting[1] >= startDay[1] : true) &&
+  (finishDay[0] >= (startMeeting[1] + durationHours)) &&
+  (finishDay[0] === (startMeeting[0] + durationHours) ? (startMeeting[1] + durationMinutes) <= finishDay[1] : true);
+};
+willMeetingBe(startDayTime, finishDayYime, startMeetingTime, durationTime);
