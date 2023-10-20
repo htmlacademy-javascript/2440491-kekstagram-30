@@ -1,6 +1,4 @@
-import { getNumInRange } from "./get-num-in-range";
-import { getUniqueId } from "./get-unique-id";
-import { getRandomElementIn } from "./get-random-element";
+import { getUniqueId, getNumInRange, getRandomElementIn } from "./util";
 
 // Массивы
 const COMMENTSTEXT = ['Всё отлично!','В целом всё неплохо. Но не всё.',
