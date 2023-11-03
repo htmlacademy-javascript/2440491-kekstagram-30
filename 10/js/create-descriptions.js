@@ -13,12 +13,6 @@ const createCommentsId = getUniqueId();
 // Составляем объект для описания фотографии
 const getPhotoDescription = () => {
   const createNumberOfLikes = getNumInRange(15, 200);
-  const startDescription = {
-    id: createPhotoId(),
-    url: `photos/${createPhotoAddress()}.jpg`,
-    description: getRandomElementIn(DESCRIPTIONS, 1),
-    likes: createNumberOfLikes,
-  };
   const getComment = () => {
     const createAvatarAddress = getNumInRange(1, 6);
     const comment = {
@@ -30,9 +24,15 @@ const getPhotoDescription = () => {
     return comment;
   };
   // генерируем до 30 комментариев
-  const comments = Array.from({length: getNumInRange(0, 30)}, getComment);
+  const startDescription = {
+    id: createPhotoId(),
+    url: `photos/${createPhotoAddress()}.jpg`,
+    description: getRandomElementIn(DESCRIPTIONS, 1),
+    likes: createNumberOfLikes,
+    comments: Array.from({length: getNumInRange(0, 30)}, getComment),
+  };
   // соединяем объекты startDescription и comments
-  return Object.assign({}, startDescription, comments);
+  return startDescription;
 };
 
 export {getPhotoDescription};
