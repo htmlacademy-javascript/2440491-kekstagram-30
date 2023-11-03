@@ -24,4 +24,14 @@ const getRandomElementIn = (array, maxNum) => {
   return sentences;
 };
 
-export {getUniqueId, getNumInRange, getRandomElementIn};
+// Функция для создания элемента
+const createNewElement = function (tag, tegClass, text) {
+  const el = document.createElement(tag);
+  el.classList.add(tegClass);
+  if (text){
+    el.textContent = text;
+  }
+  return el;
+};
+
+export {getUniqueId, getNumInRange, getRandomElementIn, createNewElement};
