@@ -1,5 +1,4 @@
-import { getPhotoDescription } from './create-descriptions.js';
+import { getPhotoDescription } from './create-descriptions';
+import { createPhotos } from './create-photos';
 
-// генерируем 25 описаний для фото
-// eslint-disable-next-line no-unused-vars
-const photoDescriptions = Array.from({length: 25}, getPhotoDescription);
+createPhotos(getPhotoDescription);
