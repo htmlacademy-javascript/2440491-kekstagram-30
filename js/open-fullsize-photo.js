@@ -9,7 +9,6 @@ const commentsAll = popUp.querySelector('.social__comment-total-count');
 const commentsBlock = popUp.querySelector('.social__comments');
 const descriptionText = popUp.querySelector('.social__caption');
 const closeButton = popUp.querySelector('.big-picture__cancel');
-const countCommentsBlock = document.querySelector('.social__comment-count');
 const countCommentsBlock2 = document.querySelector('.comments-loader');
 /*
 <li class="social__comment">
@@ -40,7 +39,7 @@ const loadComments = function (number, maxNum, photoComments) {
     commentLi.append(commentText);
     commentsBlock.append(commentLi);
   }
-}
+};
 // Функция для создания комментариев к фото
 const createPhotoComments = function (photoComments) {
   commentsBlock.innerHTML = '';
