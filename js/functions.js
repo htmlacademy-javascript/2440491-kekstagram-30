@@ -40,7 +40,7 @@ const toNumber = (str) => {
       result += str[i];
     }
   }
-  return result ? result : NaN;
+  return result ? Number(result) : NaN;
 };
 
 toNumber(string);
