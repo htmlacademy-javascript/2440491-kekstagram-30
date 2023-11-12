@@ -1,6 +1,8 @@
 import { getPhotoDescription } from './create-descriptions';
 import { createPhotos } from './create-photos';
-import { uploadImage } from './change-form';
+import { uploadImage, changeScale, createPhotoFilter} from './change-form';
 
 uploadImage();
+changeScale();
+createPhotoFilter();
 createPhotos(getPhotoDescription);
