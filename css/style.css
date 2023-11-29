@@ -719,6 +719,11 @@ main {
   position: relative;
 }
 
+.form__error {
+  display: block;
+  padding-bottom: 25px;
+}
+
 
 /**
  * Кнопка для отправки изображения
