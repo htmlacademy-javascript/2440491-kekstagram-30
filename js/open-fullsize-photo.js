@@ -87,7 +87,7 @@ const changePhotoCard = function (photoCard) {
 
 // Открываем попап с фото из массива элементов [photoDescriptions]
 const openPopUp = function (el, photoDescriptions, photoNumber) {
-  el.addEventListener('click', (evt) => {
+  el.addEventListener('click', () => {
     changePhotoCard(photoDescriptions[photoNumber]);
     popUp.classList.remove('hidden');
     body.classList.add('modal-open');
