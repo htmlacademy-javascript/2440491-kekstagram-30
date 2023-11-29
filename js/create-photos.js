@@ -5,9 +5,7 @@ const template = document.querySelector('#picture').content.querySelector('.pict
 const fragment = document.createDocumentFragment();
 
 // Ф-ция для добавления фото в разметку
-const createPhotos = function (getPhotoDescription) {
-  // генерируем 25 описаний для фото
-  const photoDescriptions = Array.from({length: 24}, getPhotoDescription);
+const createPhotos = function (photoDescriptions) {
   photoDescriptions.forEach((element) => {
     const photoCard = template.cloneNode(true);
     photoCard.querySelector('.picture__img').src = element.url;

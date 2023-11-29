@@ -1,8 +1,11 @@
-import { getPhotoDescription } from './create-descriptions';
 import { createPhotos } from './create-photos';
 import { uploadImage, changeScale, createPhotoFilter} from './change-form';
+import { getData } from './api';
 
 uploadImage();
 changeScale();
 createPhotoFilter();
-createPhotos(getPhotoDescription);
+getData()
+  .then((photos) => {
+    createPhotos(photos);
+  });
