@@ -9,7 +9,6 @@ const inputChangePhoto = form.querySelector('.img-upload__input');
 const hashtagsInput = form.querySelector('[name="hashtags"]');
 const commentText = form.querySelector('.text__description');
 const mainPopup = form.querySelector('.img-upload__overlay');
-// eslint-disable-next-line no-unused-vars
 const previewPhoto = mainPopup.querySelector('.img-upload__preview').querySelector('img');
 const buttonClose = mainPopup.querySelector('.img-upload__cancel');
 const submitButton = mainPopup.querySelector('.img-upload__submit');
@@ -142,6 +141,15 @@ const errorMesages = {
 
 // Загрузить попап с изображением
 const uploadImage = function () {
+  const FILES_NAME = ['jpg', 'png', 'jpeg', 'webp'];
+  inputChangePhoto.addEventListener('change', () => {
+    const file = inputChangePhoto.files[0];
+    const fileName = file.name.toLowerCase();
+    const correct = FILES_NAME.some((end) => fileName.endsWith(end));
+    if (correct){
+      previewPhoto.src = URL.createObjectURL(file);
+    }
+  });
   const disableButton = function (button) {
     button.disabled = true;
   };
