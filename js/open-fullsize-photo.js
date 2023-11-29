@@ -22,8 +22,6 @@ const countCommentsBlock2 = document.querySelector('.comments-loader');
 */
 
 
-let countImage = 0;
-
 // Функция для загрузки комментариев
 const loadComments = function (number, maxNum, photoComments) {
   for (let i = number; i < maxNum; i++){
@@ -98,6 +96,7 @@ const openPopUp = function (el, photoDescriptions, photoNumber) {
 
 // главная функция открытия
 const openBigPhoto = function (photoDescriptions) {
+  let countImage = 0;
   const miniPictures = document.querySelectorAll('.picture__img');
   miniPictures.forEach((element) => {
     openPopUp(element, photoDescriptions, countImage);

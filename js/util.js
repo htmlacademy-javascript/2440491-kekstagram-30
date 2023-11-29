@@ -24,6 +24,20 @@ const getRandomElementIn = (array, maxNum) => {
   return sentences;
 };
 
+// Функция для генерации случайных неповторяющихся элементов в массиве
+const getUniqueRandom = (array, maxNum) => {
+  const randomElements = [];
+  const arrayLength = array.length;
+  for (let i = 0; i < maxNum; i++) {
+    let el = getNumInRange(0, arrayLength - 1);
+    while (randomElements.indexOf(array[el]) >= 0) {
+      el = getNumInRange(0, arrayLength - 1);
+    }
+    randomElements.push(array[el]);
+  }
+  return randomElements;
+};
+
 // Функция для создания элемента
 const createNewElement = function (tag, tegClass, text) {
   const el = document.createElement(tag);
@@ -34,4 +48,13 @@ const createNewElement = function (tag, tegClass, text) {
   return el;
 };
 
-export {getUniqueId, getNumInRange, getRandomElementIn, createNewElement};
+let timeoutId;
+// eslint-disable-next-line arrow-body-style
+const debounce = (callback, timeoutDelay = 500) => {
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {getUniqueId, getNumInRange, getRandomElementIn, createNewElement, getUniqueRandom, debounce};
