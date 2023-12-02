@@ -9,7 +9,7 @@ const inputChangePhoto = form.querySelector('.img-upload__input');
 const hashtagsInput = form.querySelector('[name="hashtags"]');
 const commentText = form.querySelector('.text__description');
 const mainPopup = form.querySelector('.img-upload__overlay');
-// eslint-disable-next-line no-unused-vars
+const previewPhotos = mainPopup.querySelectorAll('.effects__preview');
 const previewPhoto = mainPopup.querySelector('.img-upload__preview').querySelector('img');
 const buttonClose = mainPopup.querySelector('.img-upload__cancel');
 const submitButton = mainPopup.querySelector('.img-upload__submit');
@@ -142,6 +142,21 @@ const errorMesages = {
 
 // Загрузить попап с изображением
 const uploadImage = function () {
+  const FILES_NAME = ['jpg', 'png', 'jpeg', 'webp'];
+  inputChangePhoto.addEventListener('change', () => {
+    mainPopup.classList.remove('hidden');
+    body.classList.add('modal-open');
+    const file = inputChangePhoto.files[0];
+    const fileName = file.name.toLowerCase();
+    const correct = FILES_NAME.some((end) => fileName.endsWith(end));
+    if (correct){
+      const previewUrl = URL.createObjectURL(file);
+      previewPhoto.src = previewUrl;
+      previewPhotos.forEach((el) => {
+        el.style.backgroundImage = `url(${previewUrl})`;
+      });
+    }
+  });
   const disableButton = function (button) {
     button.disabled = true;
   };
@@ -186,17 +201,13 @@ const uploadImage = function () {
     disabledForClose(commentText);
     pristine.addValidator(commentText, checkCommentLength, errorMesages.Comment);
   };
-  inputChangePhoto.onchange = function () {
-    mainPopup.classList.remove('hidden');
-    body.classList.add('modal-open');
-    addHashtag();
-    addComment();
-  };
+  addHashtag();
+  addComment();
 
   // Закрыть всё
   const closeAll = function () {
-    inputChangePhoto.value = '';
-    hashtagsInput.value = '';
+    inputChangePhoto.value = null;
+    hashtagsInput.value = null;
     commentText.value = '';
     mainPopup.classList.add('hidden');
     body.classList.remove('modal-open');
