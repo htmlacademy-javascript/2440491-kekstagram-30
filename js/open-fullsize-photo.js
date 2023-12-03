@@ -10,17 +10,6 @@ const commentsBlock = popUp.querySelector('.social__comments');
 const descriptionText = popUp.querySelector('.social__caption');
 const closeButton = popUp.querySelector('.big-picture__cancel');
 const countCommentsBlock2 = document.querySelector('.comments-loader');
-/*
-<li class="social__comment">
-  <img
-    class="social__picture"
-    src="{{аватар}}"
-    alt="{{имя комментатора}}"
-    width="35" height="35">
-  <p class="social__text">{{текст комментария}}</p>
-</li>
-*/
-
 
 // Функция для загрузки комментариев
 const loadComments = function (number, maxNum, photoComments) {

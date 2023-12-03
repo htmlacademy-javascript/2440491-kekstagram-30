@@ -1,5 +1,8 @@
+import { getData } from './api';
 import { openBigPhoto } from './open-fullsize-photo';
+import { showSuccessMesage } from './show-message';
 import { getUniqueRandom, debounce } from './util';
+
 const pictures = document.querySelector('.pictures');
 const template = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -10,15 +13,13 @@ const filterDefault = filtersBlock.querySelector('#filter-default');
 const filterRandom = filtersBlock.querySelector('#filter-random');
 const filterDiscussed = filtersBlock.querySelector('#filter-discussed');
 let lastButton = filterDefault;
+const body = document.querySelector('body');
 
 const TIMEOUT = 500;
 // Ф-ция для добавления фото в разметку
 const createPhotos = function (photoDescriptions) {
   const removePhotos = function () {
-    const picturesOnScreen = pictures.querySelectorAll('a');
-    for (let i = 0; i < picturesOnScreen.length; i++) {
-      picturesOnScreen[i].remove();
-    }
+    pictures.querySelectorAll('a').forEach((el) => el.remove());
   };
   // Ф-ция отрисовки изображений
   const loadPhotos = function (photos) {
@@ -34,38 +35,41 @@ const createPhotos = function (photoDescriptions) {
     pictures.append(fragment);
     openBigPhoto(photos);
   };
-  //Ф-ция для сортировки по комментариям
+  // Ф-ция для сортировки по комментариям
   const sortComments = function (el1, el2) {
     const commentsEl1 = el1.comments.length;
     const commentsEl2 = el2.comments.length;
     return commentsEl2 - commentsEl1;
   };
-  // Ф-ция для изменения фильтров
+  // Функции фильтров
+  const filtersFunction = [filterDefault, photoDescriptions, filterRandom, getUniqueRandom(photoDescriptions, 10), filterDiscussed, photoDescriptions.slice().sort(sortComments)];
+  // Ф-ция для изменения фотофильтра
   const activeClass = 'img-filters__button--active';
-  const toggleActiveClass = function (el) {
-    el.classList.toggle(activeClass);
-  };
-  filtersBlock.classList.remove('img-filters--inactive');
-  const changeActiveEl = function (evt) {
-    toggleActiveClass(lastButton);
-    toggleActiveClass(evt.target);
-    lastButton = evt.target;
+  const changeActiveEl = function (el) {
+    el.classList.add(activeClass);
+    lastButton.classList.remove(activeClass);
+    lastButton = el;
   };
   const refreshPhotos = function (cb) {
     cb();
   };
-  filterDefault.addEventListener('click', (evt) => {
-    changeActiveEl(evt);
-    refreshPhotos(debounce(() => loadPhotos(photoDescriptions), TIMEOUT));
-  });
-  filterRandom.addEventListener('click', (evt) => {
-    changeActiveEl(evt);
-    refreshPhotos(debounce(() => loadPhotos(getUniqueRandom(photoDescriptions, 10)), TIMEOUT));
-  });
-  filterDiscussed.addEventListener('click', (evt) => {
-    changeActiveEl(evt);
-    refreshPhotos(debounce(() => loadPhotos(photoDescriptions.slice().sort(sortComments)), TIMEOUT));
-  });
+  for (let i = 0; i < filtersFunction.length; i += 2) {
+    filtersFunction[i].addEventListener('click', (evt) => {
+      changeActiveEl(evt.target);
+      refreshPhotos(debounce(() => loadPhotos(filtersFunction[i + 1]), TIMEOUT));
+    });
+  }
+  filtersBlock.classList.remove('img-filters--inactive');
   loadPhotos(photoDescriptions);
 };
-export {createPhotos};
+// Ф-ция для получения данных от сервера
+const getPhotosFromServer = function () {
+  getData()
+    .then((photos) => {
+      createPhotos(photos);
+    })
+    .catch(() => {
+      showSuccessMesage(body, '#data-error');
+    });
+};
+export {createPhotos, getPhotosFromServer};
