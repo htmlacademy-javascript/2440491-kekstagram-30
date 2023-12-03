@@ -1,11 +1,7 @@
-import { createPhotos } from './create-photos';
-import { uploadImage, changeScale, createPhotoFilter} from './change-form';
-import { getData } from './api';
+import { getPhotosFromServer } from './upload-photos';
+import { createPhotoFilter } from './effects';
+import { uploadImage} from './form';
 
-uploadImage();
-changeScale();
 createPhotoFilter();
-getData()
-  .then((photos) => {
-    createPhotos(photos);
-  });
+uploadImage();
+getPhotosFromServer();

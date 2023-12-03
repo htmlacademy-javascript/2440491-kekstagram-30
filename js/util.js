@@ -24,6 +24,13 @@ const getRandomElementIn = (array, maxNum) => {
   return sentences;
 };
 
+// Ф-ция для того чтобы элемент нельзя было закрыть
+const disabledForClose = function (el) {
+  el.addEventListener('keydown', (evt) => {
+    evt.stopPropagation();
+  });
+};
+
 // Функция для генерации случайных неповторяющихся элементов в массиве
 const getUniqueRandom = (array, maxNum) => {
   const randomElements = [];
@@ -57,4 +64,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {getUniqueId, getNumInRange, getRandomElementIn, createNewElement, getUniqueRandom, debounce};
+export {getUniqueId, getNumInRange, getRandomElementIn, createNewElement, getUniqueRandom, debounce, disabledForClose};
